@@ -9,6 +9,9 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
 
+# s = Service(executable_path='chromedriver.exe')
+# driver = webdriver.Chrome(service=s)
+
 from selenium.webdriver.chrome.options import Options
 
 options = Options()
@@ -22,11 +25,6 @@ options.add_argument("--disable-infobars")
 options.add_argument("--disable-dev-shm-usage")
 
 driver = webdriver.Chrome(options=options)
-
-
-
-#s = Service(executable_path='../chromedriver.exe')
-#driver = webdriver.Chrome(service=s)
 
 
 # Fixture method - to open web browser
@@ -114,7 +112,8 @@ def create_new_user():
     driver.find_element(By.ID, 'id_email').send_keys(locators.email)
 
     # Select 'Allow everyone to see my email address'
-    Select(driver.find_element(By.ID, 'id_maildisplay')).select_by_visible_text('Allow everyone to see my email address')
+    Select(driver.find_element(By.ID, 'id_maildisplay')).select_by_visible_text(
+        'Allow everyone to see my email address')
     sleep(0.25)
     driver.find_element(By.ID, 'id_moodlenetprofile').send_keys(locators.moodle_net_profile)
     sleep(0.25)
@@ -257,7 +256,6 @@ def delete_user():
     except NoSuchElementException as nse:
         print(f'Element is not found:')
         print(f' ---- User {locators.email} does not exist, user is deleted')
-
 
 # setUp()
 # log_in(locators.moodle_username, locators.moodle_password)
